@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayush Pandey - Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particles.js/2.0.0/particles.min.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
+        :root {
+            --primary-color: #6EE7B7;
+            --secondary-color: #3B82F6;
+            --accent-color: #10B981;
+            --background-dark: #0F172A;
+            --card-bg: rgba(30, 41, 59, 0.7);
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: var(--background-dark);
+            color: #E2E8F0;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, #1E293B 0%, #0F172A 100%);
+            z-index: -2;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iLjc1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjMwMCIgaGVpZ2h0PSIzMDAiIGZpbHRlcj0idXJsKCNhKSIgb3BhY2l0eT0iLjA1Ii8+PC9zdmc+');
+            opacity: 0.4;
+            z-index: -1;
+        }
+
+        .hero-title {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            font-size: 4.5rem;
+            line-height: 1.1;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(110, 231, 183, 0.1);
+        }
+
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(110, 231, 183, 0.3);
+            box-shadow: 0 12px 40px rgba(110, 231, 183, 0.1);
+        }
+
+        .nav-link {
+            position: relative;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .custom-button {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            z-index: 1;
+        }
+
+        .custom-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .custom-button:hover::before {
+            opacity: 1;
+        }
+
+        .skill-bar {
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .skill-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 4px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .experience-card {
+            background: var(--card-bg);
+            border: 1px solid rgba(110, 231, 183, 0.1);
+            transition: all 0.4s ease;
+            padding: 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            box-shadow: 0 10px 30px rgba(110, 231, 183, 0.1);
+        }
+
+        .achievement-badge {
+            background: linear-gradient(135deg, rgba(110, 231, 183, 0.1), rgba(59, 130, 246, 0.1));
+            border: 1px solid rgba(110, 231, 183, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            color: var(--primary-color);
+            display: inline-block;
+            margin: 0.25rem;
+        }
+
+        .project-card {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid rgba(110, 231, 183, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-color);
+            box-shadow: 0 20px 40px rgba(110, 231, 183, 0.1);
+        }
+
+        .profile-image {
+            border: 4px solid rgba(110, 231, 183, 0.3);
+            box-shadow: 0 0 30px rgba(110, 231, 183, 0.2);
+        }
+
+        @keyframes gradient-flow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .section-title {
+            display: inline-block;
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #fff 0%, #94A3B8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 2rem;
+        }
+
+        .social-icon {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: var(--secondary-color);
+            transform: translateY(-5px);
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    <div class="noise-overlay"></div>
+    <div id="particles-js"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-opacity-70 backdrop-blur-lg bg-gray-900">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-primary">AP</div>
+            <div class="space-x-8">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#experience" class="nav-link">Experience</a>
+                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#achievements" class="nav-link">Achievements</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-16">
+        <div class="container mx-auto px-6 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2">
+                <h1 class="hero-title mb-6">Hello, I'm<br>Ayush Pandey</h1>
+                <p class="text-xl mb-8 text-gray-300">Full Stack Developer & DevOps Engineer</p>
+                <div class="space-x-6">
+                    <a href="#contact" class="custom-button rounded-full">Get In Touch</a>
+                    <a href="#projects" class="px-8 py-4 rounded-full border-2 border-primary hover:bg-primary hover:text-white transition-all">View Work</a>
+                </div>
+            </div>
+            <div class="md:w-1/2 mt-12 md:mt-0">
+                <img src="/image/ayush.png" alt="Ayush Pandey" class="profile-image rounded-full w-80 h-80 object-cover mx-auto">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">About Me</h2>
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="glass-card p-8 rounded-xl">
+                    <h3 class="text-xl font-bold mb-6 text-primary">Education</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="text-lg font-medium">B.Tech in Computer Science and Engineering</p>
+                            <p class="text-gray-400">Goel Institute of Technology and Management, Lucknow</p>
+                            <p class="text-gray-400">CGPA: 7.35 (Till 6th Sem) | 2021-2025</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-medium">Senior Secondary</p>
+                            <p class="text-gray-400">Hindustan Aeronautics Limited</p>
+                            <p class="text-gray-400">Percentage: 72.6% | 2021</p>
+                        </div>
+                        <div>
+                            <p class="text-lg font-medium">Matriculation</p>
+                            <p class="text-gray-400">Hindustan Aeronautics Limited</p>
+                            <p class="text-gray-400">Percentage: 75.2% | 2019</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-card p-8 rounded-xl">
+                    <h3 class="text-xl font-bold mb-6 text-primary">Technical Skills</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">MERN Stack</span>
+                                <span class="text-primary">90%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">AWS & DevOps</span>
+                                <span class="text-primary">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">Docker & Terraform</span>
+                                <span class="text-primary">80%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-medium">C & JavaScript</span>
+                                <span class="text-primary">85%</span>
+                            </div>
+                            <div class="skill-bar">
+                                <div class="skill-progress" style="width: 85%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 bg-opacity-50 backdrop-blur-lg">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Experience</h2>
+            <div class="space-y-8">
+                <div class="experience-card">
+                    <h3 class="text-xl font-bold text-primary mb-4">DevSecops Software Pvt Ltd</h3>
+                    <p class="text-gray-300 mb-4">
+                        Worked on frontend development with extensive experience in Linux, AWS, and Terraform. Created and tested Terraform modules for scalable cloud solutions. Collaborated with cross-functional teams to integrate infrastructure changes into the development workflow.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="achievement-badge">AWS</span>
+                        <span class="achievement-badge">Terraform</span>
+                        <span class="achievement-badge">Linux</span>
+                        <span class="achievement-badge">RHEL</span>
+                        <span class="achievement-badge">Frontend Development</span>
+                    </div>
+                </div>
+                
+                <div class="experience-card">
+                    <h3 class="text-xl font-bold text-primary mb-4">Sidvir Pvt. Limited</h3>
+                    <p class="text-gray-300 mb-4">
+                        Developed an Electronic Health Record Card Portal using MERN stack. Implemented responsive interfaces, RESTful APIs, and efficient database management. Enhanced full-stack development skills and version control proficiency.
+                    </p>
+                    <div class="flex flex-wrap gap-2">
+                        <span class="achievement-badge">MongoDB</span>
+                        <span class="achievement-badge">Express.js</span>
+                        <span class="achievement-badge">React.js</span>
+                        <span class="achievement-badge">Node.js</span>
+                        <span class="achievement-badge">Git</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Projects</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="project-card p-8 rounded-xl">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-shopping-cart text-2xl text-primary mr-4"></i>
+                        <h3 class="text-xl font-bold">E-commerce Dashboard</h3>
+                    </div>
+                    <p class="mb-6 text-gray-300">
+                        Built an E-Commerce dashboard (ayush-pandey.info) with user authentication, item management, and AWS deployment using ECR and ECS with Docker containerization.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="achievement-badge">React.js</span>
+                        <span class="achievement-badge">Node.js</span>
+                        <span class="achievement-badge">MongoDB</span>
+                        <span class="achievement-badge">Docker</span>
+                        <span class="achievement-badge">AWS</span>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="https://ayush-pandey.info" class="flex items-center text-primary hover:text-secondary transition-colors">
+                            <i class="fas fa-external-link-alt mr-2"></i> View Project
+                        </a>
+                        <a href="https://github.com/yourusername/ecommerce-dashboard" class="flex items-center text-primary hover:text-secondary transition-colors">
+                            <i class="fab fa-github mr-2"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="project-card p-8 rounded-xl">
+                    <div class="flex items-center mb-6">
+                        <i class="fas fa-sticky-note text-2xl text-primary mr-4"></i>
+                        <h3 class="text-xl font-bold">Note Saver App</h3>
+                    </div>
+                    <p class="mb-6 text-gray-300">
+                        A web-based Note Saver App with local storage persistence, allowing users to create, edit, and delete notes efficiently with an intuitive interface.
+                    </p>
+                    <div class="flex flex-wrap gap-2 mb-4">
+                        <span class="achievement-badge">React.js</span>
+                        <span class="achievement-badge">Local Storage</span>
+                        <span class="achievement-badge">CSS3</span>
+                        <span class="achievement-badge">JavaScript</span>
+                    </div>
+                    <div class="flex space-x-6">
+                        <a href="#" class="flex items-center text-primary hover:text-secondary transition-colors">
+                            <i class="fas fa-external-link-alt mr-2"></i> View Project
+                        </a>
+                        <a href="#" class="flex items-center text-primary hover:text-secondary transition-colors">
+                            <i class="fab fa-github mr-2"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="py-20 bg-opacity-50 backdrop-blur-lg">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Achievements</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass-card p-8 rounded-xl">
+                    <i class="fas fa-star text-primary text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-4">HackerRank Achievement</h3>
+                    <p class="text-gray-300">4 star in C Language at HackerRank (2022)</p>
+                </div>
+                <div class="glass-card p-8 rounded-xl">
+                    <i class="fas fa-trophy text-primary text-3xl mb-4"></i>
+                    <h3 class="text-xl font-bold mb-4">Programming Competition</h3>
+                    <p class="text-gray-300">3rd Rank in devMind 1.0 quiz competition on C programming (2021)</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-6">
+            <h2 class="section-title text-center">Get In Touch</h2>
+            <div class="max-w-lg mx-auto">
+                <div class="glass-card p-8 rounded-xl">
+                    <div class="mb-8">
+                        <p class="text-lg mb-2">Email</p>
+                        <p class="text-primary">ayushpandey.ayush7878@gmail.com</p>
+                    </div>
+                    <div class="mb-8">
+                        <p class="text-lg mb-2">Phone</p>
+                        <p class="text-primary">+91-8737017878</p>
+                    </div>
+                    <div class="flex justify-center space-x-8">
+                        <a href="https://github.com/yourusername" class="social-icon hover:scale-110 transition-transform">
+                            <i class="fab fa-github text-3xl"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/yourusername" class="social-icon hover:scale-110 transition-transform">
+                            <i class="fab fa-linkedin text-3xl"></i>
+                        </a>
+                        <a href="mailto:ayushpandey.ayush7878@gmail.com" class="social-icon hover:scale-110 transition-transform">
+                            <i class="fas fa-envelope text-3xl"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Initialize Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: {
+                    value: 100,
+                    density: {
+                        enable: true,
+                        value_area: 800
+                    }
+                },
+                color: {
+                    value: '#6EE7B7'
+                },
+                shape: {
+                    type: 'circle'
+                },
+                opacity: {
+                    value: 0.2,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 1,
+                        opacity_min: 0.1,
+                        sync: false
+                    }
+                },
+                size: {
+                    value: 3,
+                    random: true,
+                    anim: {
+                        enable: true,
+                        speed: 2,
+                        size_min: 0.1,
+                        sync: false
+                    }
+                },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: '#6EE7B7',
+                    opacity: 0.1,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: 'none',
+                    random: true,
+                    straight: false,
+                    out_mode: 'out',
+                    bounce: false,
+                    attract: {
+                        enable: true,
+                        rotateX: 600,
+                        rotateY: 1200
+                    }
+                }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: {
+                    onhover: {
+                        enable: true,
+                        mode: 'grab'
+                    },
+                    onclick: {
+                        enable: true,
+                        mode: 'push'
+                    },
+                    resize: true
+                },
+                modes: {
+                    grab: {
+                        distance: 140,
+                        line_linked: {
+                            opacity: 0.5
+                        }
+                    },
+                    push: {
+                        particles_nb: 4
+                    }
+                }
+            },
+            retina_detect: true
+        });
+
+        // Smooth scroll for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Animate skill bars on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.width = entry.target.getAttribute('data-width');
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.skill-progress').forEach(bar => {
+            observer.observe(bar);
+        });
+
+        // Add parallax effect to hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.profile-image');
+            parallaxElements.forEach(element => {
+                const speed = 0.5;
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+    </script>
+</body>
+</html>
